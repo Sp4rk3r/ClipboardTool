@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>
+			Clipboard replace
+		</title>
+		<script type="text/javascript" src="script.js"></script>
+		
+		<style>
+			body {
+				margin: 0 10px 10px 10px;
+				background: rgb(200, 200, 200); /* Grey */
+			}
+			div#left {
+				
+			}
+			p.button {
+				padding: 5px;
+				margin-left: 10px;				
+				width: 300px;
+				border: 2px solid rgb(200, 200, 200); /* Same grey */
+				cursor: default;
+			}
+			p.button:hover {
+				background-color: rgb(228,228,228)
+			}
+			p.tooClose {
+				margin-left: 15px;				
+				width: 300px;
+				border: 2px solid rgb(200, 200, 200); /* Same grey */
+				cursor: default;
+			}
+			p#clipboard {
+				font-size: 14pt;
+			}
+			#script {
+				width: 25em
+			}
+			strong {
+				font-size: 16pt;
+			}
+			textarea {
+				margin: 10px 0px 0px 20px;
+				resize: none;
+			}
+			.grid-container {
+				display: grid;				
+				grid-template-columns: auto auto;				
+			}
+			.containers {
+				grid-column: 1 / span 1;
+			}
+			.data {
+				grid-row:2
+			}
+			.info {
+				grid-row:2
+			}
+			.actions {
+				max-height: 440px;
+				overflow-y:scroll;/*added*/
+			}
+			.link {
+				margin-left: 15px;
+			}
+			#clipboard {
+				margin-left: 20px;
+			}
+			#copyClib {
+				margin-left: 20px;
+			}
+			::-webkit-scrollbar {
+				width: 12px;
+			}
+			
+			::-webkit-scrollbar-track {
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+				border-radius: 10px;
+			}
+			
+			::-webkit-scrollbar-thumb {
+				border-radius: 10px;
+				-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+			}
+			#data-field, #script {
+				user-select: none;
+				border: none;
+			}
+			#data-field:focus, #script:focus {
+				user-select: none;
+				border: none;
+				outline: none;
+			}
+			
+			#data-field {
+				background-color: rgb(200, 200, 200);
+			}
+			
+			@media only screen and (max-width: 1530px) {
+			  #script {
+				width: 20em;
+			  }
+			}
+		</style>
+	</head>
+	<body onload="reload();">
+		<div class="grid-container">
+			<div class="containers">
+				<div id="left">
+			<textarea id="field" onchange="count();" cols="80" rows="28"></textarea>
+			
+			<textarea id="script" onchange="count();"  rows="10">text = text.replace(/[^\d\r\n]/g, "");
+text = text.replace(/[\r\n]+/g, "\r\n");</textarea>
+			
+		</div>
+			</div>
+			
+			<div class="actions">
+				<p class="tooClose">
+			<input id="closeAfterScript" type="checkbox" checked="true"></input>
+			<strong>Close</strong>
+			<br>
+			Close this window after the execution of a script
+		</p>
+			
+		 <p class="button" onclick="reload();" >
+			<strong>Reload Clipboard</strong>
+			<br />
+			Reload the text content of the clipboard
+		</p>
+		<p class="button" onclick="text();">
+			<strong>Copy to Clipboard</strong>
+			<br />
+			Copy the text into the clipboard
+		</p>
+		 <p class="button" onclick="addE();" >
+			<strong>Add e</strong>
+			<br />
+			Change &#x201C;1\n2\n3&#x201D; into &#x201C;1e\n2e\n3e&#x201D;
+		</p> 
+		<p class="button" onclick="list();" >
+			<strong>List</strong>
+			<br />
+			Change &#x201C;1\n2\n3&#x201D; into &#x201C;('1', '2', '3')&#x201D;
+		</p>
+		<p class="button" onclick="listId();" >
+			<strong>List of ID's</strong>
+			<br />
+			Change &#x201C;1\n2\n3&#x201D; into &#x201C;(1, 2, 3)&#x201D;
+		</p>
+		<p class="button" onclick="postnl();" >
+			<strong>PostNL</strong>
+			<br />
+			Postnl resend list with exec ops.ResubmitDocumentToPostNL;
+		</p>
+		<p class="button" onclick="siebelQuery();" >
+			<strong>Siebel Query</strong>
+			<br />
+			Change &#x201C;1\n2\n3&#x201D; into &#x201C;1 OR 2 OR 3&#x201D;
+		</p>
+		<p class="button" onclick="emailVerify();" >
+			<strong>Evaluate Email address</strong>
+			<br />
+			Evaluate an email address
+		</p>
+		<p class="button" onclick="decode();" >
+			<strong>Decode string</strong>
+			<br />
+			Decode an encoded string			
+		</p>
+		<p class="button" onclick="readXML();" >
+			<strong>Search for FunctionalId</strong>
+			<br />
+			Search xml for the VKONT number			
+		</p>
+		<p class="button" onclick="vkont();" >
+			<strong>Update FunctionalId</strong>
+			<br />
+			Set VKONT in correct format		
+		</p>
+		<p class="button" onclick="evalScript();" >
+			<strong>Evaluate script</strong>
+			<br />
+			Change variable text in the lower box
+		</p>
+		<p class="link">
+			<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/script56/html/js56jsgrpRegExpSyntax.asp" target="_new">Regular expressions syntax</a>
+		</p>
+			</div>
+			<div class="data">
+				<textarea readonly id="data-field" cols="80" rows="10"></textarea>
+			</div>
+			<div class="info">
+				<p id="clipboard"></p>
+				<p id="copyClib"></p>
+			</div>
+			
+		</div>
+		
+		
+	</body>
+</html>
