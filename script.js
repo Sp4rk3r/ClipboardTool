@@ -146,6 +146,20 @@ function reload() {
 
 				end(text);
 			}
+			
+			function enter(text) {
+				var text = document.getElementById("field").value;
+
+				/* Change "1\n2\n3" into "('1', '2', '3')" to use in SQL IN statements. */
+				/*text = text.replace(/\r\n/g, "', '"); text = text.replace("," /(?:\r\n|\r|\n)/g);
+				JVDB - 10/03/2015 - I'm the man*/
+				text = text.split(",").join("\n")
+				
+				/*text = text.replace(text, "" + text);*/
+				console.log(text)
+
+				end(text);
+			}
 
 			function over(object) {
 				object.style.background = "rgb(228, 228, 228)";
@@ -212,3 +226,5 @@ function reload() {
 				text = text.replace(/^/gm, "0000");
 				end(text);
 			}
+			
+			
