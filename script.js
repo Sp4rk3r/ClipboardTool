@@ -160,6 +160,28 @@ function reload() {
 
 				end(text);
 			}
+			
+			function epochToHuman(text) {
+				var text = document.getElementById("field").value;
+				
+				var myDate = new Date( text *1000);
+				//document.write(myDate.toGMTString()+"<br>"+myDate.toLocaleString());
+				console.log(myDate.toGMTString()+" - "+myDate.toLocaleString())
+				
+				text = (myDate.toGMTString()+" - "+myDate.toLocaleString())
+				end(text)
+			}
+			
+			function HumanToEpoch(text) {
+				var text = document.getElementById("field").value;
+				
+				var myDate = new Date(text); // Your timezone!
+				var myEpoch = myDate.getTime()/1000.0;
+				//document.write(myEpoch);
+				
+				text = myEpoch
+				end(text)
+			}
 
 			function over(object) {
 				object.style.background = "rgb(228, 228, 228)";
